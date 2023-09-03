@@ -22,6 +22,7 @@ namespace _06_tankedazhan_dev
         public Bitmap BitmapRight { get; set; }
 
         public int Speed { get; set; }
+        public Direction dir { get; set; }
         public Direction Dir { get; set; }
 
         protected override Image GetImage()

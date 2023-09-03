@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace _06_tankedazhan_dev
 {
@@ -18,10 +19,22 @@ namespace _06_tankedazhan_dev
         public static void Start()
         {
             GameObjectManager.CreateMap();
+            GameObjectManager.CreateMyTank();
         }
         public static void Update()
         {//FPS
-            GameObjectManager.DrawMap();
+            //GameObjectManager.DrawMap();
+            //GameObjectManager.DrawMytank();
+            GameObjectManager.Update();
+        }
+
+        //消息中间站
+        public static void KeyDown(KeyEventArgs e)
+        {
+
+        }
+        public static void KeyUp(KeyEventArgs e)
+        {
 
         }
     }

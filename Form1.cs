@@ -59,5 +59,17 @@ namespace _06_tankedazhan_dev
         {
             t.Abort();
         }
+        
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            //if(e.KeyCode = Keys.W)
+            GameObjectManager.KeyUp(e);
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            GameObjectManager.KeyDown(e);
+
+        }
     }
 }
