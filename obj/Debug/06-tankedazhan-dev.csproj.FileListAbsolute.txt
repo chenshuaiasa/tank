@@ -1,0 +1,10 @@
+E:\cs\code\CsharpeWorkspace\06-tankedazhan-dev\bin\Debug\06-tankedazhan-dev.exe.config
+E:\cs\code\CsharpeWorkspace\06-tankedazhan-dev\bin\Debug\06-tankedazhan-dev.exe
+E:\cs\code\CsharpeWorkspace\06-tankedazhan-dev\bin\Debug\06-tankedazhan-dev.pdb
+E:\cs\code\CsharpeWorkspace\06-tankedazhan-dev\obj\Debug\06-tankedazhan-dev.csproj.AssemblyReference.cache
+E:\cs\code\CsharpeWorkspace\06-tankedazhan-dev\obj\Debug\_06_tankedazhan_dev.Form1.resources
+E:\cs\code\CsharpeWorkspace\06-tankedazhan-dev\obj\Debug\_06_tankedazhan_dev.Properties.Resources.resources
+E:\cs\code\CsharpeWorkspace\06-tankedazhan-dev\obj\Debug\06-tankedazhan-dev.csproj.GenerateResource.cache
+E:\cs\code\CsharpeWorkspace\06-tankedazhan-dev\obj\Debug\06-tankedazhan-dev.csproj.CoreCompileInputs.cache
+E:\cs\code\CsharpeWorkspace\06-tankedazhan-dev\obj\Debug\06-tankedazhan-dev.exe
+E:\cs\code\CsharpeWorkspace\06-tankedazhan-dev\obj\Debug\06-tankedazhan-dev.pdb
