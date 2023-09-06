@@ -13,11 +13,13 @@ namespace _06_tankedazhan_dev
         public int Y { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+
+        //public int ss = 0;
         //private int X;
         //public int X{get{return x;} set{value=x;}}
         protected abstract Image GetImage();
 
-        public void DrawSelf()
+        public virtual void DrawSelf()
         {
             Graphics g = GameFramework.g;
             g.DrawImage(GetImage(),X,Y);
@@ -25,6 +27,11 @@ namespace _06_tankedazhan_dev
         public virtual void Update()
         {
             DrawSelf();
+        }
+        public Rectangle GetRectangle()
+        {
+            Rectangle rectangle = new Rectangle(X,Y,Width,Height);
+            return rectangle;
         }
     }
 }

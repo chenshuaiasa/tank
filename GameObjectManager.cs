@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace _06_tankedazhan_dev
 {
@@ -14,8 +15,20 @@ namespace _06_tankedazhan_dev
         private static List<NotMovingthing> wallList = new List<NotMovingthing>();
         private static List<NotMovingthing> steelList = new List<NotMovingthing>();
         private static List<NotMovingthing> bosslList = new List<NotMovingthing>();
+        private static List<EnemyTank> tankList = new List<EnemyTank>();
+        private static List<Bulet> bulletList = new List<Bulet>();
         private static MyTank mytank;
+        private static int enemyBornSpeed = 60;
+        private static int enemyBorncount = 60;
+        private static Point[] points = new Point[3];
 
+        private static List<Explosion> expList = new List<Explosion>();
+        public static void Start()
+        {
+            points[0].X = 0; points[0].Y = 0;
+            points[1].X = 7*30; points[1].Y = 0;
+            points[2].X = 14*30; points[2].Y = 0;
+        }
         public static void Update()
         {
             foreach (NotMovingthing nm in wallList)
@@ -30,12 +43,114 @@ namespace _06_tankedazhan_dev
             {
                 nm.Update();
             }
+            foreach (EnemyTank tank in tankList)
+            {
+                tank.Update();
+            }
+            foreach (Bulet b in bulletList)
+            {
+                b.Update();
+            }
+            CheckAndDstroyBullet();
+            foreach (Explosion exp in expList)
+            {
+                exp.Update();
+            }
             mytank.Update();
+            EnemyBorn();
         }
         //public static void DrawMytank()
         //{
         //    mytank.DrawSelf();
         //}
+
+        private static void CheckAndDstroyBullet()
+        {
+            List<Bulet> needtoDestroy = new List<Bulet>();
+            foreach(Bulet bullet in bulletList)
+            {
+                if(bullet.IsDestroy == true)
+                {
+                    needtoDestroy.Add(bullet);
+                }
+            }
+            foreach(Bulet b in needtoDestroy)
+            {
+                bulletList.Remove(b);
+            }
+            
+        }
+        public static void CreateExplosion(int x,int y)
+        {
+            Explosion exp = new Explosion(x,y);
+            expList.Add(exp);
+        }
+        public static void CreateBullet(int x,int y,Tag tag,Direction dir)
+        {
+            Bulet bullet = new Bulet(x,y,5,dir,tag);
+            bulletList.Add(bullet);
+                
+        }
+
+        public static void DstroyWall(NotMovingthing wall)
+        {
+            wallList.Remove(wall);
+        }
+        public static void DestroyTank(EnemyTank tank)
+        {
+            tankList.Remove(tank);
+        }
+        public static void CheckAndDestroyExp()
+        {
+
+        }
+        private static void EnemyBorn()
+        {
+            enemyBorncount++;
+            if (enemyBorncount < enemyBornSpeed) return;
+            //0-2
+            Random rd = new Random();
+            int index = rd.Next(0, 3);
+            Point position = points[index];
+            int enemyType = rd.Next(1,5);
+            switch (enemyType)
+            {
+                case 1:
+                    CreateEnemyTank1(position.X, position.Y);
+                    break;
+                case 2:
+                    CreateEnemyTank2(position.X, position.Y);
+                    break;
+                case 3:
+                    CreateEnemyTank3(position.X, position.Y);
+                    break;
+                case 4:
+                    CreateEnemyTank4(position.X, position.Y);
+                    break;
+            }
+            enemyBorncount = 0;
+        }
+
+        private static void CreateEnemyTank1(int x,int y)
+        {
+            EnemyTank tank = new EnemyTank(x,y,2,Resources.GrayDown, Resources.GrayUp, Resources.GrayRight, Resources.GrayLeft);
+            tankList.Add(tank);
+        }
+        private static void CreateEnemyTank2(int x, int y)
+        {
+            EnemyTank tank = new EnemyTank(x, y, 2, Resources.GreenDown, Resources.GreenUp, Resources.GreenRight, Resources.GreenLeft);
+            tankList.Add(tank);
+        }
+        private static void CreateEnemyTank3(int x, int y)
+        {
+            EnemyTank tank = new EnemyTank(x, y, 4, Resources.QuickDown, Resources.QuickUp, Resources.QuickRight, Resources.QuickLeft);
+            tankList.Add(tank);
+        }
+        private static void CreateEnemyTank4(int x, int y)
+        {
+            EnemyTank tank = new EnemyTank(x, y, 1, Resources.SlowDown, Resources.SlowUp, Resources.SlowRight, Resources.SlowLeft);
+            tankList.Add(tank);
+        }
         public static void CreateMyTank()
         {
             int x = 6 * 30;
@@ -128,6 +243,52 @@ namespace _06_tankedazhan_dev
         public static void KeyUp(KeyEventArgs e)
         {
             mytank.KeyUp(e);
+        }
+
+
+        public static NotMovingthing IsCollidedWall(Rectangle rt)
+        {
+            foreach(NotMovingthing wall in wallList)
+            {
+                if (wall.GetRectangle().IntersectsWith(rt))
+                {
+                    return wall;
+                }
+            }
+            return null;
+        }
+        public static NotMovingthing IsCollidedSteel(Rectangle rt)
+        {
+            foreach (NotMovingthing stell in steelList)
+            {
+                if (stell.GetRectangle().IntersectsWith(rt))
+                {
+                    return stell;
+                }
+            }
+            return null;
+        }
+        public static EnemyTank IsCollidedenEnemyTank(Rectangle rt)
+        {
+            foreach(EnemyTank e in tankList)
+            {
+                if (e.GetRectangle().IntersectsWith(rt))
+                {
+                    return e;
+                }
+            }
+            return null;
+        }
+        public static NotMovingthing IsCollidedBoss(Rectangle rt)
+        {
+            foreach (NotMovingthing boss in bosslList)
+            {
+                if (boss.GetRectangle().IntersectsWith(rt))
+                {
+                    return boss;
+                }
+            }
+            return null;
         }
     }
 }

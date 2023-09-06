@@ -8,3 +8,13 @@ E:\cs\code\CsharpeWorkspace\06-tankedazhan-dev\obj\Debug\06-tankedazhan-dev.cspr
 E:\cs\code\CsharpeWorkspace\06-tankedazhan-dev\obj\Debug\06-tankedazhan-dev.csproj.CoreCompileInputs.cache
 E:\cs\code\CsharpeWorkspace\06-tankedazhan-dev\obj\Debug\06-tankedazhan-dev.exe
 E:\cs\code\CsharpeWorkspace\06-tankedazhan-dev\obj\Debug\06-tankedazhan-dev.pdb
+D:\code\Csharpworkspace\mytank\tank\bin\Debug\06-tankedazhan-dev.exe.config
+D:\code\Csharpworkspace\mytank\tank\bin\Debug\06-tankedazhan-dev.exe
+D:\code\Csharpworkspace\mytank\tank\bin\Debug\06-tankedazhan-dev.pdb
+D:\code\Csharpworkspace\mytank\tank\obj\Debug\06-tankedazhan-dev.csproj.AssemblyReference.cache
+D:\code\Csharpworkspace\mytank\tank\obj\Debug\_06_tankedazhan_dev.Form1.resources
+D:\code\Csharpworkspace\mytank\tank\obj\Debug\_06_tankedazhan_dev.Properties.Resources.resources
+D:\code\Csharpworkspace\mytank\tank\obj\Debug\06-tankedazhan-dev.csproj.GenerateResource.cache
+D:\code\Csharpworkspace\mytank\tank\obj\Debug\06-tankedazhan-dev.csproj.CoreCompileInputs.cache
+D:\code\Csharpworkspace\mytank\tank\obj\Debug\06-tankedazhan-dev.exe
+D:\code\Csharpworkspace\mytank\tank\obj\Debug\06-tankedazhan-dev.pdb

@@ -18,6 +18,7 @@ namespace _06_tankedazhan_dev
 
         public static void Start()
         {
+            GameObjectManager.Start();
             GameObjectManager.CreateMap();
             GameObjectManager.CreateMyTank();
         }
