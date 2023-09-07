@@ -11,7 +11,7 @@ namespace _06_tankedazhan_dev
     enum Tag
     {
         Mytank,
-        enemytank
+        Enemytank
     }
     internal class Bulet:Movingthing
     {
@@ -81,6 +81,7 @@ namespace _06_tankedazhan_dev
             rtnow.Width = 3;
             //1 wall 2 steel 3 Tank
             NotMovingthing wall = null;
+            NotMovingthing stell = null;
             int xExplosion = this.X+Width/2;
             int yExplosion = this.Y+Height/2;
             if((wall = GameObjectManager.IsCollidedWall(rtnow)) != null)
@@ -88,12 +89,15 @@ namespace _06_tankedazhan_dev
                 IsDestroy = true;
                 GameObjectManager.DstroyWall(wall);
                 GameObjectManager.CreateExplosion(xExplosion, yExplosion);
+                SoundManager.PlayBlast();
                 return;
             }
             //2
-            if (GameObjectManager.IsCollidedSteel(rtnow) != null)
+            if ((stell = GameObjectManager.IsCollidedSteel(rtnow)) != null)
             {
                 IsDestroy = true;
+                //GameObjectManager.DstroyWall(stell);
+                GameObjectManager.CreateExplosion(xExplosion, yExplosion);
                 return;
             }
             //3
@@ -104,15 +108,30 @@ namespace _06_tankedazhan_dev
                 {
                     IsDestroy = true;
                     GameObjectManager.DestroyTank(tank);
+                    GameObjectManager.CreateExplosion(xExplosion, yExplosion);
+                    SoundManager.PlayBlast();
                     return;
                 }
-                
-                
             }
-            //if (GameObjectManager.IsCollidedBoss(rtnow) != null)
-            //{
-            //    IsDestroy = true; ;
-            //}
+            //4 敌人打我
+            else if(Tag == Tag.Enemytank)
+            {
+                MyTank tank = null;
+                if((tank = GameObjectManager.IsCollidedMytank(rtnow)) != null)
+                {
+                    IsDestroy = true;
+                    GameObjectManager.CreateExplosion(xExplosion, yExplosion);
+                    tank.TakeDamege();
+                    return;
+                }
+
+            }
+            if (GameObjectManager.IsCollidedBoss(rtnow) != null)
+            {
+                IsDestroy = true;
+                GameFramework.ChangeToGameOver();
+                SoundManager.PlayBlast();
+            }
         }
         private void Move()
         {

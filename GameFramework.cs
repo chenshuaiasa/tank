@@ -8,9 +8,15 @@ using System.Windows.Forms;
 
 namespace _06_tankedazhan_dev
 {
+    enum GameState
+    {
+        Runing,
+        GameOver
+    }
     internal class GameFramework
     {
         public static Graphics g;
+        private static GameState gameState = GameState.Runing;
 
         public GameFramework()
         {
@@ -21,14 +27,33 @@ namespace _06_tankedazhan_dev
             GameObjectManager.Start();
             GameObjectManager.CreateMap();
             GameObjectManager.CreateMyTank();
+            SoundManager.InitSound();
+            SoundManager.PlayStart();
         }
         public static void Update()
         {//FPS
             //GameObjectManager.DrawMap();
             //GameObjectManager.DrawMytank();
-            GameObjectManager.Update();
+            if(gameState == GameState.Runing)
+            {
+                GameObjectManager.Update();
+            }
+            else if(gameState == GameState.GameOver)
+            {
+                GameOverUpdate();
+            }
+            
         }
-
+        private static void GameOverUpdate()
+        {
+            int x = 450/2 - Properties.Resources.GameOver.Width/2;
+            int y = 450/2 - Properties.Resources.GameOver.Height/2;
+            g.DrawImage(Properties.Resources.GameOver,x,y);
+        }
+        public static void ChangeToGameOver()
+        {
+            gameState = GameState.GameOver;
+        }
         //消息中间站
         public static void KeyDown(KeyEventArgs e)
         {

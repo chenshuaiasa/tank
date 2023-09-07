@@ -13,10 +13,15 @@ namespace _06_tankedazhan_dev
     {
         //public bool IsMoving { get; set; }  
         public bool IsMoving { get; set; }
+        public int HP { get; set; }
+        private int originalX;
+        private int originalY;
         public MyTank(int x,int y,int speed) { 
             IsMoving = false;
             this.X = x;
-            this.Y = y; 
+            this.Y = y;
+            originalX = x;
+            originalY = y;
             this.Speed = speed;
             
             BitmapDown = Resources.MyTankDown;
@@ -24,6 +29,7 @@ namespace _06_tankedazhan_dev
             BitmapLeft = Resources.MyTankLeft;
             BitmapRight = Resources.MyTankRight;
             this.Dir = Direction.Up;
+            HP = 4;
         }
         //GameMainThread KeyDown冲突
         // 1 2 解决资源冲突，加锁
@@ -55,6 +61,7 @@ namespace _06_tankedazhan_dev
         }
         private void Attack()
         {
+            SoundManager.PlayFire();
             //发射子弹
             int x = this.X;
             int y = this.Y;
@@ -177,6 +184,14 @@ namespace _06_tankedazhan_dev
                     X -=Speed; break;
                 case Direction.Right:
                     X +=Speed; break;
+            }
+        }
+        public void TakeDamege()
+        {
+            HP--;
+            if(HP <=0)
+            {
+                X = originalX; Y = originalY;
             }
         }
     }

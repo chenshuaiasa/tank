@@ -12,10 +12,11 @@ namespace _06_tankedazhan_dev
 {
     internal class Explosion : GameObject
     {
-        private int playSpeed = 2;
-        private int playCount = -1;
+        private int playSpeed = 1;
+        private int playCount = 0;
         private int index = 0;
         public bool isNeedDestroy;
+        //public bool isDestroy { get; set; }
         private Bitmap[] bitmapArray = new Bitmap[]
         {
             Resources.EXP1,
@@ -32,6 +33,7 @@ namespace _06_tankedazhan_dev
             isNeedDestroy = false;
             this.X = x - bitmapArray[0].Width / 2;
             this.Y = y - bitmapArray[0].Height / 2;
+
         }
         protected override Image GetImage()
         {
@@ -47,7 +49,7 @@ namespace _06_tankedazhan_dev
         public override void Update()
         {
             playCount++;
-            index = (playCount - 1) / playSpeed;
+            index = (playCount - playSpeed) / playSpeed;
             base.Update();
         }
     }

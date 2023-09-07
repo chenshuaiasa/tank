@@ -47,11 +47,12 @@ namespace _06_tankedazhan_dev
             {
                 tank.Update();
             }
+            CheckAndDstroyBullet();
             foreach (Bulet b in bulletList)
             {
                 b.Update();
             }
-            CheckAndDstroyBullet();
+            CheckAndDestroyExp();
             foreach (Explosion exp in expList)
             {
                 exp.Update();
@@ -64,22 +65,7 @@ namespace _06_tankedazhan_dev
         //    mytank.DrawSelf();
         //}
 
-        private static void CheckAndDstroyBullet()
-        {
-            List<Bulet> needtoDestroy = new List<Bulet>();
-            foreach(Bulet bullet in bulletList)
-            {
-                if(bullet.IsDestroy == true)
-                {
-                    needtoDestroy.Add(bullet);
-                }
-            }
-            foreach(Bulet b in needtoDestroy)
-            {
-                bulletList.Remove(b);
-            }
-            
-        }
+        
         public static void CreateExplosion(int x,int y)
         {
             Explosion exp = new Explosion(x,y);
@@ -96,13 +82,44 @@ namespace _06_tankedazhan_dev
         {
             wallList.Remove(wall);
         }
+        public static void DstroySteel(NotMovingthing steel)
+        {
+            steelList.Remove(steel);
+        }
         public static void DestroyTank(EnemyTank tank)
         {
             tankList.Remove(tank);
         }
+        private static void CheckAndDstroyBullet()
+        {
+            List<Bulet> needtoDestroy = new List<Bulet>();
+            foreach (Bulet bullet in bulletList)
+            {
+                if (bullet.IsDestroy == true)
+                {
+                    needtoDestroy.Add(bullet);
+                }
+            }
+            foreach (Bulet b in needtoDestroy)
+            {
+                bulletList.Remove(b);
+            }
+
+        }
         public static void CheckAndDestroyExp()
         {
-
+            List<Explosion> needtoDestroy = new List<Explosion>();
+            foreach (Explosion exp in expList)
+            {
+                if (exp.isNeedDestroy == true)
+                {
+                    needtoDestroy.Add(exp);
+                }
+            }
+            foreach (Explosion e in needtoDestroy)
+            {
+                expList.Remove(e);
+            }
         }
         private static void EnemyBorn()
         {
@@ -135,6 +152,7 @@ namespace _06_tankedazhan_dev
         {
             EnemyTank tank = new EnemyTank(x,y,2,Resources.GrayDown, Resources.GrayUp, Resources.GrayRight, Resources.GrayLeft);
             tankList.Add(tank);
+            SoundManager.PlayAdd();
         }
         private static void CreateEnemyTank2(int x, int y)
         {
@@ -203,7 +221,8 @@ namespace _06_tankedazhan_dev
             CreateWallhalf(15, 27, 1, Resources.wall, wallList);
             CreateWallhalf(16, 27, 1, Resources.wall, wallList);
             CreateWallhalf(17, 27, 1, Resources.wall, wallList);
-            CreateWallhalf(17, 28, 2, Resources.wall, wallList);
+            CreateWallhalf(18, 27, 1, Resources.wall, wallList);
+            CreateWallhalf(18, 28, 2, Resources.wall, wallList);
 
             CreateWallhalf(15, 28, 1, Resources.Boss, bosslList);
 
@@ -276,6 +295,14 @@ namespace _06_tankedazhan_dev
                 {
                     return e;
                 }
+            }
+            return null;
+        }
+        public static MyTank IsCollidedMytank(Rectangle rt)
+        {
+            if(mytank.GetRectangle().IntersectsWith(rt))
+            {
+                return mytank;
             }
             return null;
         }

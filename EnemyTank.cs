@@ -11,6 +11,10 @@ namespace _06_tankedazhan_dev
 {
     internal class EnemyTank:Movingthing
     {
+        public int AttackSpeed { get; set; }
+        private int attackCount = 0;
+        public int changeDirSpeed { get; set; }
+        private int changeDirCount = 0;
         private Random r = new Random();
         public EnemyTank(int x, int y, int speed,Bitmap bmpDpwn,Bitmap bmpUp,Bitmap bmpRight,Bitmap bmpLeft)
         {
@@ -22,12 +26,16 @@ namespace _06_tankedazhan_dev
             BitmapUp = bmpUp;
             BitmapLeft = bmpLeft;
             BitmapRight = bmpRight;
+            AttackSpeed = 60;
+            changeDirSpeed = 70;
             this.Dir = Direction.Down;
         }
         public override void Update()
         {
             MoveCheck();//移动检查
             Move();
+            AttackCheck();
+            AutoChangeDirction();
             base.Update();
         }
         private void MoveCheck()
@@ -109,6 +117,16 @@ namespace _06_tankedazhan_dev
                     X += Speed; break;
             }
         }
+        private void AutoChangeDirction()
+        {
+            changeDirCount++;
+            if(changeDirCount < changeDirSpeed)
+            {
+                return;
+            }
+            ChangeDirction();
+            changeDirCount = 0;
+        }
         private void ChangeDirction()
         {
             //随机生成4个方向,r为种子
@@ -125,6 +143,37 @@ namespace _06_tankedazhan_dev
                 }
             }
             MoveCheck();
+        }
+        private void AttackCheck()
+        {
+            attackCount++;
+            if (attackCount < AttackSpeed) return;
+            Attack();
+            attackCount = 0;
+        }
+        private void Attack()
+        {
+            //发射子弹
+            int x = this.X;
+            int y = this.Y;
+            switch (Dir)
+            {
+                case Direction.Up:
+                    x = x + Width / 2;
+                    break;
+                case Direction.Down:
+                    x = x + Width / 2;
+                    y = y + Height;
+                    break;
+                case Direction.Left:
+                    y = y + Height / 2;
+                    break;
+                case Direction.Right:
+                    y = y + Height / 2;
+                    x = x + Width;
+                    break;
+            }
+            GameObjectManager.CreateBullet(x, y, Tag.Enemytank, Dir);
         }
     }
 }
